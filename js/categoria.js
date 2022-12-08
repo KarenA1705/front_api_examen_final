@@ -23,14 +23,14 @@ function listarcategorias(){
                
                 categorias += `
                 <tr>
-                    <th scope="row">${categoria.id}</th>
+                    <th scope="row">${categoria.id_ctg}</th>
                     <td>${categoria.nombre}</td>
                     <td>${categoria.descripcion}</td>
                    
                 </tr>  `;
                 
             }
-            document.getElementById("listar").innerHTML = usuarios;
+            document.getElementById("listarCategorias").innerHTML = categorias;
     })
 }
 
@@ -58,7 +58,7 @@ function registerCategoria(){
             </div>
               
             <form action="" method="post" id="myForm1">
-            <input type="hidden" name="id" id="id">
+            <input type="hidden" name="id_ctg" id="id_ctg">
 
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" name="nombre" id="nombre" required> <br>
@@ -69,7 +69,8 @@ function registerCategoria(){
                 <button type="button" class="btn btn-outline-info" onclick="registrarCategoria()">Registrar</button>
             </form>`;
             document.getElementById("contentModal").innerHTML = cadena;
-            var myModal = new bootstrap.Modal(document.getElementById('modalCategoria'))
+            document.getElementById("exampleModalLabel2").innerHTML = "Gestión de categorias";
+            var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
             myModal.toggle();
 }
 
@@ -88,33 +89,14 @@ async function registrarCategoria(){
         },
         body: JSON.stringify(jsonData)
     });
-    if(localStorage.token == undefined){
-        console.log(request.status);
-        if(request.status=='201'){
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Una categoria registrada exitosamente',
-                showConfirmButton: false,
-                timer: 1500
-              })          
-           
-        }else{
-            Swal.fire({
-                position: 'top-end',
-                icon: 'error',
-                text: 'ingrese los datos de manera correcta',
-                showConfirmButton: false,
-                timer: 3000
-              });
-        }
-    }else{
-      listarUsuarios();
+   
+      listarcategorias();
       alertas("Se ha registrado la categoria exitosamente!",1)
-    }
+    
+      
     
     document.getElementById("contentModal").innerHTML = '';
-    var myModalEl = document.getElementById('modalCategoria')
+    var myModalEl = document.getElementById('modalUsuario')
     var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
     modal.hide();
 }
