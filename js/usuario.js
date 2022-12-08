@@ -1,6 +1,6 @@
 //funciones js para el modulo de usuarios
 
-const urlApi = "http://localhost:8080";//colocar la url con el puerto
+const urlApi = "http://localhost:8090";//colocar la url con el puerto
 
 async function login(){
     let correo = document.querySelector('#myForm #correo').value;
@@ -61,6 +61,7 @@ async function login(){
 function listarUsuarios(){
     validaToken();
     $("#table_usuario").show();
+    $("#table_categoria").hide();
     var settings={
         method: 'GET',
         headers:{
@@ -324,7 +325,7 @@ async function registrarUsuario(){
             Swal.fire({
                 position: 'top-end',
                 icon: 'success',
-                title: 'Uusuario registrado exitosamente',
+                title: 'Un usuario registrado exitosamente',
                 showConfirmButton: false,
                 timer: 1500
               })          

@@ -70,7 +70,32 @@
   
                       </tbody>
                     </table>
+                </div>
+
+                <div style="display:none;"   id="table_categoria" class="card-body">
+                  
+                  <div id="datos"></div>
+
+                  <div class="p-3 mb-2 bg-light text-dark">
+                    <h5 class="display-5"><i class="fa-solid fa-list"></i> Listado de categorias</h5>
                   </div>
+                  
+                  <a href="#" onclick="registerCategoria()" class="btn btn-outline-success"><i class="fa-solid fa-user-plus"></i></a>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripcion</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody id="listar">
+
+                    </tbody>
+                  </table>
+              </div>
+
                <div id="alerta"> </div>
             </div>
         </div>
@@ -80,7 +105,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Gestion de uasuarios</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">Gestion de usuarios</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                             <div class="modal-body" id="contentModal">
@@ -92,6 +117,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="js/usuario.js"></script>
+    <script src="js/categoria.js"></script>
     <script src="https://kit.fontawesome.com/7d38072211.js" crossorigin="anonymous"></script>
      
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
