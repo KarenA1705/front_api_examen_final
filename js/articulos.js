@@ -39,13 +39,13 @@ function listarArticulos(){
                     <td>${articulo.precio_compra}</td>
                     <td>
                     <button type="button" class="btn btn-outline-danger" 
-                    onclick="eliminaarticulo('${articulo.codigo}')">
+                    onclick="eliminaArticulo('${articulo.codigo}')">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
-                    <a href="#" onclick="verModificararticulo('${articulo.codigo}')" class="btn btn-outline-warning">
+                    <a href="#" onclick="verModificarArticulo('${articulo.codigo}')" class="btn btn-outline-warning">
                         <i class="fa-solid fa-pen"></i>
                     </a>
-                    <a href="#" onclick="verarticulo('${articulo.codigo}')" class="btn btn-outline-info">
+                    <a href="#" onclick="verArticulo('${articulo.codigo}')" class="btn btn-outline-info">
                         <i class="fa-solid fa-eye"></i>
                     </a>
                     </td>
@@ -79,7 +79,7 @@ function eliminaUsuario(id){
             +"/usuario/"+id,settings)
             .then(response => response.text())
             .then(function(data){
-                listarUsuarios();
+                listarArticulos();
                 alertas("Se ha eliminado el usuario exitosamente!",2)
             })
         }
@@ -141,7 +141,7 @@ function verModificarUsuario(id){
                 </form>`;
             }
             document.getElementById("contentModal").innerHTML = cadena;
-            document.getElementById("exampleModalLabel2").innerHTML = "Gestión de usuarios";
+            document.getElementById("exampleModalLabel2").innerHTML = "Gestión de articulos";
             var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
             myModal.toggle();
     })
@@ -165,7 +165,7 @@ async function modificarUsuario(id){
         },
         body: JSON.stringify(jsonData)
     });
-    listarUsuarios();
+    listarArticulos();
     alertas("Se ha modificado el usuario exitosamente!",1)
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario')
@@ -173,7 +173,7 @@ async function modificarUsuario(id){
     modal.hide();
 }
 
-function verUsuario(id){
+function verArticulo(id){
     validaToken();
     var settings={
         method: 'GET',
@@ -183,31 +183,34 @@ function verUsuario(id){
             'Authorization': localStorage.token
         },
     }
-    fetch(urlApi2
-    +"/usuario/"+id,settings)
+    fetch(urlApi2 +"/articulo/codigo/"+id,settings)
     .then(response => response.json())
-    .then(function(usuario){
+    .then(function(articulo){
             var cadena='';
-            if(usuario){  
-                var date =usuario.fechaNacimiento+"";
+            if(articulo){  
+                var date =articulo.fecha_registro+"";
                 //console.log(date)
+
                 var dato =date.split('T');              
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Visualizar Usuario</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Visualizar articulo</h1>
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Nombre: ${usuario.nombre}</li>
-                    <li class="list-group-item">apellidos: ${usuario.apellidos}</li>
-                    <li class="list-group-item">Documento: ${usuario.documento}</li>
-                    <li class="list-group-item">Direccion: ${usuario.direccion}</li>
-                    <li class="list-group-item">Fecha : ${dato[0]}</li>
-                    <li class="list-group-item">Telefono: ${usuario.telefono}</li>
-                    <li class="list-group-item">Correo: ${usuario.correo}</li>
+                    <li class="list-group-item">Codigo: ${articulo.codigo}</li>
+                    <li class="list-group-item">Nombre: ${articulo.nombre}</li>
+                    <li class="list-group-item">Descripcion: ${articulo.descripcion}</li>
+                    <li class="list-group-item">Fecha registro: ${dato[0]}</li>
+                    <li class="list-group-item">Categoria: ${articulo.categoria.nombre}</li>
+                    <li class="list-group-item">Usuario: ${articulo.usuario.nombre}</li>
+                    <li class="list-group-item">Stock: ${articulo.stock}</li>
+                    <li class="list-group-item">Precio Venta: ${articulo.precio_venta}</li>
+                    <li class="list-group-item">Precio Compra: ${articulo.precio_compra}</li>
                 </ul>`;
               
             }
             document.getElementById("contentModal").innerHTML = cadena;
+            document.getElementById("exampleModalLabel2").innerHTML = "Gestión de articulos";
             var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
             myModal.toggle();
     })
@@ -306,7 +309,7 @@ async function registrarUsuario(){
               });
         }
     }else{
-      listarUsuarios();
+      listarArticulos();
       alertas("Se ha registrado el usuario exitosamente!",1)
     }
     
