@@ -1,11 +1,12 @@
 //funciones js para el modulo de usuarios
 
-const urlApi1 = "http://localhost:8090";//colocar la url con el puerto
+const urlApi1 = "http://localhost:8080";//colocar la url con el puerto
 
 function listarcategorias(){
     validaToken();
-    $("#table_categoria").show();
     $("#table_usuario").hide();
+    $("#table_article").hide();
+    $("#table_categoria").show();
     var settings={
         method: 'GET',
         headers:{
@@ -85,7 +86,8 @@ async function registrarCategoria(){
         method: 'POST',
         headers:{
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.token
         },
         body: JSON.stringify(jsonData)
     });
@@ -109,10 +111,7 @@ function modalConfirmacion(texto,funcion){
     confirmar.onclick = funcion;
 }
 
-function exit(){
-    localStorage.clear();
-    location.href = "index.html";
-}
+ 
 
 function validaToken(){
     if(localStorage.token == undefined){

@@ -1,68 +1,11 @@
-//funciones js para el modulo de usuarios
+//funciones js para el modulo de articulos
 
-const urlApi = "http://localhost:8080";//colocar la url con el puerto
+const urlApi2 = "http://localhost:8080";//colocar la url con el puerto
 
-async function login(){
-    let correo = document.querySelector('#myForm #correo').value;
-    let contraseña = document.querySelector('#myForm #password').value;
-    var jsonData = {
-        "correo":correo,
-        "password":contraseña,
-     
-        };
-    /*var myForm = document.getElementById("myForm");
-    var formData = new FormData(myForm);
-    var jsonData = {};
-    for(var [k, v] of formData){//convertimos los datos a json
-        jsonData[k] = v;
-    }*/
-    console.log(jsonData);
-
-    var settings={
-        method: 'POST',
-        headers:{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonData)
-    }
-    const request = await fetch(urlApi+"/auth/login",settings);
-    //console.log(await request.text());
-    if(request.ok){
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'logeado exitosamente',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        const respuesta = await request.text();
-       
-        localStorage.token = respuesta;
-        
-        //localStorage.token = respuesta;
-        localStorage.correo = jsonData.correo; 
-        //localStorage.id= jsonData.id; 
-        setTimeout(function () {
-            location.href= "dashboard.html";
-        }, 2000);     
-
-       
-    }else{
-        Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            text: 'los datos del usuario no son validos',
-            showConfirmButton: false,
-            timer: 3000
-          });
-    }
-}
-
-function listarUsuarios(){
+function listarArticulos(){
     validaToken();
-    $("#table_usuario").show();
-    $("#table_article").hide();
+    $("#table_usuario").hide();
+    $("#table_article").show();
     $("#table_categoria").hide();
     var settings={
         method: 'GET',
@@ -72,42 +15,44 @@ function listarUsuarios(){
             'Authorization': localStorage.token
         },
     }
-    fetch(urlApi+"/usuarios",settings)
+    fetch(urlApi2+"/articulos",settings)
     .then(response => response.json())
     .then(function(data){
         
-            var usuarios = '';
-            for(const usuario of data){
-                //console.log(usuario.correo)
-                var date =usuario.fechaNacimiento+"";
+            var articulos = '';
+            for(const articulo of data){
+                //console.log(articulo.usuario.nombre);
+                var date =articulo.fecha_registro+"";
                 //console.log(date)
                 var dato =date.split('T');
-                usuarios += `
+                articulos += `
                 <tr>
-                    <th scope="row">${usuario.id}</th>
-                    <td>${usuario.nombre}</td>
-                    <td>${usuario.apellidos}</td>
-                    <td>${usuario.documento}</td>
-                    <td>${usuario.direccion}</td>
+                    <th scope="row">${articulo.id}</th>
+                    <td>${articulo.codigo}</td>
+                    <td>${articulo.nombre}</td>
+                    <td>${articulo.descripcion}</td>
                     <td>${dato[0]}</td>
-                    <td>${usuario.telefono}</td>
-                    <td>${usuario.correo}</td>
+                    <td>${articulo.categoria.nombre}</td>
+                    <td>${articulo.usuario.nombre}</td>
+                    <td>${articulo.stock}</td>
+                    <td>${articulo.precio_venta}</td>
+                    <td>${articulo.precio_compra}</td>
                     <td>
                     <button type="button" class="btn btn-outline-danger" 
-                    onclick="eliminaUsuario('${usuario.id}')">
-                        <i class="fa-solid fa-user-minus"></i>
+                    onclick="eliminaarticulo('${articulo.codigo}')">
+                        <i class="fa-solid fa-trash-can"></i>
                     </button>
-                    <a href="#" onclick="verModificarUsuario('${usuario.id}')" class="btn btn-outline-warning">
-                        <i class="fa-solid fa-user-pen"></i>
+                    <a href="#" onclick="verModificararticulo('${articulo.codigo}')" class="btn btn-outline-warning">
+                        <i class="fa-solid fa-pen"></i>
                     </a>
-                    <a href="#" onclick="verUsuario('${usuario.id}')" class="btn btn-outline-info">
+                    <a href="#" onclick="verarticulo('${articulo.codigo}')" class="btn btn-outline-info">
                         <i class="fa-solid fa-eye"></i>
                     </a>
                     </td>
                 </tr>  `;
                 
             }
-            document.getElementById("listar").innerHTML = usuarios;
+            document.getElementById("listarArtuculos").innerHTML = articulos;
     })
 }
 
@@ -130,7 +75,8 @@ function eliminaUsuario(id){
                     'Authorization': localStorage.token
                 },
             }
-            fetch(urlApi+"/usuario/"+id,settings)
+            fetch(urlApi2
+            +"/usuario/"+id,settings)
             .then(response => response.text())
             .then(function(data){
                 listarUsuarios();
@@ -151,7 +97,8 @@ function verModificarUsuario(id){
             'Authorization': localStorage.token
         },
     }
-    fetch(urlApi+"/usuario/"+id,settings)
+    fetch(urlApi2
+    +"/usuario/"+id,settings)
     .then(response => response.json())
     .then(function(usuario){
             var cadena='';
@@ -208,7 +155,8 @@ async function modificarUsuario(id){
     for(var [k, v] of formData){//convertimos los datos a json
         jsonData[k] = v;
     }
-    const request = await fetch(urlApi+"/usuario/"+id, {
+    const request = await fetch(urlApi2
+    +"/usuario/"+id, {
         method: 'PUT',
         headers:{
             'Accept': 'application/json',
@@ -235,7 +183,8 @@ function verUsuario(id){
             'Authorization': localStorage.token
         },
     }
-    fetch(urlApi+"/usuario/"+id,settings)
+    fetch(urlApi2
+    +"/usuario/"+id,settings)
     .then(response => response.json())
     .then(function(usuario){
             var cadena='';
@@ -327,7 +276,8 @@ async function registrarUsuario(){
     for(var [k, v] of formData){//convertimos los datos a json
         jsonData[k] = v;
     }
-    const request = await fetch(urlApi+"/usuario", {
+    const request = await fetch(urlApi2
+    +"/usuario", {
         method: 'POST',
         headers:{
             'Accept': 'application/json',
@@ -366,19 +316,9 @@ async function registrarUsuario(){
     modal.hide();
 }
 
-function modalConfirmacion(texto,funcion){
-    document.getElementById("contenidoConfirmacion").innerHTML = texto;
-    var myModal = new bootstrap.Modal(document.getElementById('modalConfirmacion'))
-    myModal.toggle();
-    var confirmar = document.getElementById("confirmar");
-    confirmar.onclick = funcion;
-}
+ 
 
-function exit(){
-    localStorage.clear();
-    location.href = "index.html";
-}
-
+ 
 function validaToken(){
     if(localStorage.token == undefined){
         exit();
