@@ -89,7 +89,7 @@ function eliminaArticulo(codigo){
     
 }
 
-function verModificarUsuario(id){
+function verModificarArticulo(id){
     validaToken();
     var settings={
         method: 'GET',
@@ -100,45 +100,50 @@ function verModificarUsuario(id){
         },
     }
     fetch(urlApi2
-    +"/usuario/"+id,settings)
+    +"/articulo/"+id,settings)
     .then(response => response.json())
-    .then(function(usuario){
+    .then(function(articulo){
             var cadena='';
-            if(usuario){                
+            if(articulo){                
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Modificar Usuario</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Modificar Articulo</h1>
                 </div>
               
                 <form action="" method="post" id="myForm">
-                <input type="hidden" name="id" id="id" value="${usuario.id}">
+                <input type="hidden" name="id" id="id" value="${articulo.id}">
 
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" id="nombre" required value="${usuario.nombre}"> <br>
+                <label for="codigo" class="form-label">Codigo</label>
+                <input type="text" class="form-control" name="codigo" id="codigo" required value="${articulo.codigo}"> <br>
 
-                <label for="apellidos"  class="form-label">Apellidos</label>
-                <input type="text" class="form-control" name="apellidos" id="apellidos" required value="${usuario.apellidos}"> <br>
+                <label for="nombre"  class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" required value="${articulo.nombre}"> <br>
 
-                <label for="documento"  class="form-label">Documento</label>
-                <input type="text" class="form-control" name="documento" id="documento" required value="${usuario.documento}"> <br>
+                <label for="descripcion"  class="form-label">Descripcion</label>
+                <input type="text" class="form-control" name="descripcion" id="descripcion" required value="${articulo.descripcion}"> <br>
 
                 
-                <label for="direccion"  class="form-label">Direccion</label>
-                <input type="text" class="form-control" name="direccion" id="direccion" required value="${usuario.direccion}"> <br>
+                <label for="fecha_registro"  class="form-label">Fecha de registro</label>
+                <input type="text" class="form-control" name="direccion" id="fecha_registro" required value="${articulo.fecha_registro}"> <br>
 
-                <label for="fechaNacimiento"  class="form-label">Fecha de Nacimiento</label>
-                <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" required value="${usuario.fechaNacimiento}"> <br>
+                <div id="prueba" onclick="categoria()" value="${articulo.id_ctg}">
+                <label  for="categoria">Escoja categoria</label>
+                <select  class="form-control" id="id_ctg" name="id_ctg" >
 
-                <label for="telefono"  class="form-label">Telefono</label>
-                <input type="text" class="form-control" name="telefono" id="telefono" required value="${usuario.telefono}"> <br>
+                </select>
+                </div>
+                 <br>
+                <label for="stock"  class="form-label">Stock</label>
+                <input type="number" class="form-control" name="stock" id="stock" value="${articulo.stock}"> <br>
 
-                <label for="correo" class="form-label">Correo</label>
-                <input type="email" class="form-control" name="correo" id="correo" required value="${usuario.correo}"> <br>
+                <label for="precio_venta"  class="form-label">Precio venta</label>
+                <input type="number" class="form-control" name="precio_venta" id="precio_venta" value="${articulo.precio_venta}" > <br>
 
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required> <br>
+                <label for="precio_compra" class="form-label">precio compra</label>
+                <input type="number" class="form-control" name="precio_compra" id="precio_compra" required value="${articulo.precio_compra}"> <br>
+
                     <button type="button" class="btn btn-outline-warning" 
-                        onclick="modificarUsuario('${usuario.id}')">Modificar
+                        onclick="modificarArticulo('${articulo.codigo}')">Modificar
                     </button>
                 </form>`;
             }
@@ -149,7 +154,7 @@ function verModificarUsuario(id){
     })
 }
 
-async function modificarUsuario(id){
+async function modificarArticulo(codigo){
     validaToken();
     var myForm = document.getElementById("myForm");
     var formData = new FormData(myForm);
@@ -158,7 +163,7 @@ async function modificarUsuario(id){
         jsonData[k] = v;
     }
     const request = await fetch(urlApi2
-    +"/usuario/"+id, {
+    +"/articulo/"+id, {
         method: 'PUT',
         headers:{
             'Accept': 'application/json',
@@ -168,7 +173,7 @@ async function modificarUsuario(id){
         body: JSON.stringify(jsonData)
     });
     listarArticulos();
-    alertas("Se ha modificado el usuario exitosamente!",1)
+    alertas("Se ha modificado el articulo exitosamente!",1)
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario')
     var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance

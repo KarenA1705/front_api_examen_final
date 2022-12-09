@@ -317,9 +317,15 @@ function registerForm(){
                 <button type="button" class="btn btn-outline-info" onclick="registrarUsuario()">Registrar</button>
             </form>`;
             document.getElementById("contentModal").innerHTML = cadena;
-            document.getElementById("exampleModalLabel2").innerHTML = "Gestión de usuarios";
+            if(localStorage.token == undefined){}
+            else
+            {
+                document.getElementById("exampleModalLabel2").innerHTML = "Gestión de usuarios";
+            }
+            
             var myModal = new bootstrap.Modal(document.getElementById('modalUsuario'))
             myModal.toggle();
+
 }
 
 async function registrarUsuario(){
