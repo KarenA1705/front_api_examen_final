@@ -42,6 +42,7 @@ async function login(){
         
         //localStorage.token = respuesta;
         localStorage.correo = jsonData.correo; 
+        consultarUser()
         //localStorage.id= jsonData.id; 
         setTimeout(function () {
             location.href= "dashboard.html";
@@ -374,7 +375,26 @@ function modalConfirmacion(texto,funcion){
     var confirmar = document.getElementById("confirmar");
     confirmar.onclick = funcion;
 }
-
+async function consultarUser(){
+    var settings={
+        method: 'GET',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.token
+        },
+    }
+    fetch(urlApi+"/usuario/correo/"+localStorage.correo,settings)
+    .then(response => response.json())
+    .then(function(usuario){
+        console.log(usuario);
+            if(usuario){  
+              localStorage.id=usuario.id;
+              
+            }
+            
+    })
+}
 function exit(){
     localStorage.clear();
     location.href = "index.html";
