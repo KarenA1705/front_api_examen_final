@@ -89,7 +89,7 @@ function eliminaArticulo(codigo){
     
 }
 
-function verModificarArticulo(id){
+function verModificarArticulo(codigo){
     validaToken();
     var settings={
         method: 'GET',
@@ -99,12 +99,14 @@ function verModificarArticulo(id){
             'Authorization': localStorage.token
         },
     }
-    fetch(urlApi2
-    +"/articulo/"+id,settings)
+    fetch(urlApi2+"/articulo/codigo/"+codigo,settings)
     .then(response => response.json())
     .then(function(articulo){
             var cadena='';
-            if(articulo){                
+            if(articulo){    
+                var date =articulo.fecha_registro+"";
+                //console.log(date)
+                var dato =date.split('T');            
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
                     <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Modificar Articulo</h1>
@@ -124,12 +126,12 @@ function verModificarArticulo(id){
 
                 
                 <label for="fecha_registro"  class="form-label">Fecha de registro</label>
-                <input type="text" class="form-control" name="direccion" id="fecha_registro" required value="${articulo.fecha_registro}"> <br>
+                <input type="date" class="form-control" name="direccion" id="fecha_registro" required > <br>
 
-                <div id="prueba" onclick="categoria()" value="${articulo.id_ctg}">
+                <div id="prueba" onclick="categoria()" ">
                 <label  for="categoria">Escoja categoria</label>
                 <select  class="form-control" id="id_ctg" name="id_ctg" >
-
+                <option class="FORM-CONTROL" selected disable value="">Seleccione</option>
                 </select>
                 </div>
                  <br>
@@ -156,14 +158,31 @@ function verModificarArticulo(id){
 
 async function modificarArticulo(codigo){
     validaToken();
-    var myForm = document.getElementById("myForm");
-    var formData = new FormData(myForm);
-    var jsonData = {};
-    for(var [k, v] of formData){//convertimos los datos a json
-        jsonData[k] = v;
-    }
-    const request = await fetch(urlApi2
-    +"/articulo/"+id, {
+    let userid= localStorage.id;
+    let nombre = document.querySelector('#myForm #nombre').value;
+    let descripcion = document.querySelector('#myForm #descripcion').value;
+    let fecha_registro = document.querySelector('#myForm #fecha_registro').value;
+    let categoria = document.querySelector('#myForm #id_ctg').value;
+    let stock = parseInt(document.querySelector('#myForm #stock').value) ;
+    let precio_venta =parseFloat(document.querySelector('#myForm #precio_venta').value);
+    let precio_compra = parseFloat(document.querySelector('#myForm #precio_compra').value);
+    var jsonData = {
+        "codigo":codigo,
+        "nombre":nombre,
+        "descripcion":descripcion,
+        "fecha_registro":fecha_registro,
+        "categoria":{
+            "id_ctg":categoria
+        },
+        "usuario":{
+            "id":userid
+        },
+        "stock":stock,
+        "precio_venta":precio_venta,
+        "precio_compra":precio_compra,
+        };
+        //console.log(jsonData);
+    const request = await fetch(urlApi2+"/articulo/"+codigo, {
         method: 'PUT',
         headers:{
             'Accept': 'application/json',
@@ -262,7 +281,7 @@ function registerArticulo(){
             <div id="prueba" onclick="categoria()">
                 <label  for="categoria">Escoja categoria</label>
                 <select  class="form-control" id="id_ctg" name="id_ctg">
-
+                 <option class="FORM-CONTROL" selected disable value="">Seleccione</option>
                 </select>
             </div>
             <br>
@@ -297,7 +316,7 @@ async function categoria()
         fetch(urlApi2+"/categorias",settings)
         .then((response) => response.json())
         .then(function (data) {
-            let template = '<option class="FORM-CONTROL" selected disable value="">Seleccione</option>'
+            let template = ''
             for(const categorias of data){
                 template += "<option value="+categorias.id_ctg+">"+categorias.nombre+"</option>"
             }
