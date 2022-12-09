@@ -55,7 +55,7 @@ function alertas(mensaje,tipo){
 function registerCategoria(){
     cadena = `
             <div class="p-3 mb-2 bg-light text-dark">
-                <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Registrar Categoria</h1>
+                <h1 class="display-5"><i class="fa-solid fa-circle-plus"></i> Registrar Categoria</h1>
             </div>
               
             <form action="" method="post" id="myForm1">

@@ -246,7 +246,7 @@ function verUsuario(id){
                 var dato =date.split('T');              
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Visualizar Usuario</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-eye"></i> Visualizar Usuario</h1>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">Nombre: ${usuario.nombre}</li>
@@ -285,7 +285,7 @@ function alertas(mensaje,tipo){
 function registerForm(){
     cadena = `
             <div class="p-3 mb-2 bg-light text-dark">
-                <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Registrar Usuario</h1>
+                <h1 class="display-5"><i class="fa-solid fa-user-plus"></i> Registrar Usuario</h1>
             </div>
               
             <form action="" method="post" id="myForm1">

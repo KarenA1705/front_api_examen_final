@@ -109,7 +109,7 @@ function verModificarArticulo(codigo){
                 var dato =date.split('T');            
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Modificar Articulo</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-pen"></i> Modificar Articulo</h1>
                 </div>
               
                 <form action="" method="post" id="myForm">
@@ -220,7 +220,7 @@ function verArticulo(codigo){
                 var dato =date.split('T');              
                 cadena = `
                 <div class="p-3 mb-2 bg-light text-dark">
-                    <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Visualizar articulo</h1>
+                    <h1 class="display-5"><i class="fa-solid fa-eye"></i> Visualizar articulo</h1>
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item">Codigo: ${articulo.codigo}</li>
@@ -261,7 +261,7 @@ function alertas(mensaje,tipo){
 function registerArticulo(){
     cadena = `
             <div class="p-3 mb-2 bg-light text-dark">
-                <h1 class="display-5"><i class="fa-solid fa-user-pen"></i> Registrar Articulo</h1>
+                <h1 class="display-5"><i class="fa-solid fa-square-plus"></i> Registrar Articulo</h1>
             </div>
               
             <form action="" method="post" id="myForm1">
