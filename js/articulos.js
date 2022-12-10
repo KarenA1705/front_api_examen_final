@@ -1,6 +1,6 @@
 //funciones js para el modulo de articulos
 
-const urlApi2 = "http://localhost:8090";//colocar la url con el puerto
+const urlApi2 = "http://localhost:8080";//colocar la url con el puerto
 
 function listarArticulos(){
     validaToken();
@@ -82,7 +82,7 @@ function eliminaArticulo(codigo){
             .then(response => response.text())
             .then(function(data){
                 listarArticulos();
-                alertas("Se ha eliminado el articulo exitosamente!",2)
+                alertas1("Se ha eliminado el articulo exitosamente!",2)
             })
         }
       })
@@ -192,7 +192,7 @@ async function modificarArticulo(codigo){
         body: JSON.stringify(jsonData)
     });
     listarArticulos();
-    alertas("Se ha modificado el articulo exitosamente!",1)
+    alertas1("Se ha modificado el articulo exitosamente!",1)
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario')
     var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
@@ -242,15 +242,15 @@ function verArticulo(codigo){
     })
 }
 
-function alertas(mensaje,tipo){
-    var color ="";
+function alertas1(mensaje,tipo){
+    var color ="warning";
     if(tipo == 1){//success verde
         color="success"
     }
     else{//danger rojo
         color = "danger"
     }
-    var alerta =`<div class="alert alert-'+color+' alert-dismissible fade show" role="alert">
+    var alerta =`<div class="alert alert-${color} alert-dismissible fade show" role="alert">
                     <strong><i class="fa-solid fa-triangle-exclamation"></i></strong>
                         ${mensaje}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -371,7 +371,7 @@ async function registrarArticulo(){
     });
   
       listarArticulos();
-      alertas("Se ha registrado el articulo exitosamente!",1)
+      alertas1("Se ha registrado el articulo exitosamente!",1)
     
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario')

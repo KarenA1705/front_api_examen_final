@@ -1,6 +1,6 @@
 //funciones js para el modulo de usuarios
 
-const urlApi = "http://localhost:8090";//colocar la url con el puerto
+const urlApi = "http://localhost:8080";//colocar la url con el puerto
 
 async function login(){
     let correo = document.querySelector('#myForm #correo').value;
@@ -267,14 +267,14 @@ function verUsuario(id){
 }
 
 function alertas(mensaje,tipo){
-    var color ="";
+    var color ="warning";
     if(tipo == 1){//success verde
         color="success"
     }
     else{//danger rojo
         color = "danger"
     }
-    var alerta =`<div class="alert alert-'+color+' alert-dismissible fade show" role="alert">
+    var alerta =`<div class="alert alert-${color} alert-dismissible fade show" role="alert">
                     <strong><i class="fa-solid fa-triangle-exclamation"></i></strong>
                         ${mensaje}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
