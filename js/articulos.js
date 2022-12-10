@@ -191,12 +191,23 @@ async function modificarArticulo(codigo){
         },
         body: JSON.stringify(jsonData)
     });
-    listarArticulos();
-    alertas1("Se ha modificado el articulo exitosamente!",1)
-    document.getElementById("contentModal").innerHTML = '';
-    var myModalEl = document.getElementById('modalUsuario')
-    var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
-    modal.hide();
+    if(request.status=='200'){
+        listarArticulos();
+        alertas1("Se ha modificado el articulo exitosamente!",1)
+        document.getElementById("contentModal").innerHTML = '';
+        var myModalEl = document.getElementById('modalUsuario')
+        var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
+        modal.hide();
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            text: 'ingrese los datos de manera correcta',
+            showConfirmButton: false,
+            timer: 2000
+          });
+    }
+   
 }
 
 function verArticulo(codigo){
@@ -369,14 +380,23 @@ async function registrarArticulo(){
         },
         body: JSON.stringify(jsonData)
     });
-  
+    if(request.status=='201'){
       listarArticulos();
       alertas1("Se ha registrado el articulo exitosamente!",1)
-    
-    document.getElementById("contentModal").innerHTML = '';
-    var myModalEl = document.getElementById('modalUsuario')
-    var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
-    modal.hide();
+      document.getElementById("contentModal").innerHTML = '';
+      var myModalEl = document.getElementById('modalUsuario')
+      var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
+      modal.hide();
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            text: 'ingrese los datos de manera correcta',
+            showConfirmButton: false,
+            timer: 2000
+          });
+    }
+     
 }
 
 

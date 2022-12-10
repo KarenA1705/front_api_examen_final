@@ -91,17 +91,22 @@ async function registrarCategoria(){
         },
         body: JSON.stringify(jsonData)
     });
-   
-      listarcategorias();
-      alertas2
-    ("Se ha registrado la categoria exitosamente!",1)
-    
-      
-    
-    document.getElementById("contentModal").innerHTML = '';
-    var myModalEl = document.getElementById('modalUsuario')
-    var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
-    modal.hide();
+    if(request.status=='201'){
+        listarcategorias();
+        alertas2("Se ha registrado la categoria exitosamente!",1)
+        document.getElementById("contentModal").innerHTML = '';
+        var myModalEl = document.getElementById('modalUsuario')
+        var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
+        modal.hide();
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            text: 'ingrese los datos de manera correcta',
+            showConfirmButton: false,
+            timer: 2000
+          });
+    }
 }
 
 function modalConfirmacion(texto,funcion){

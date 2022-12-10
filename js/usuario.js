@@ -218,12 +218,22 @@ async function modificarUsuario(id){
         },
         body: JSON.stringify(jsonData)
     });
-    listarUsuarios();
-    alertas("Se ha modificado el usuario exitosamente!",1)
-    document.getElementById("contentModal").innerHTML = '';
-    var myModalEl = document.getElementById('modalUsuario')
-    var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
-    modal.hide();
+    if(request.status=='200'){
+        listarUsuarios();
+        alertas("Se ha modificado el usuario exitosamente!",1)
+        document.getElementById("contentModal").innerHTML = '';
+        var myModalEl = document.getElementById('modalUsuario')
+        var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
+        modal.hide();
+    }else{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            text: 'ingrese los datos de manera correcta',
+            showConfirmButton: false,
+            timer: 2000
+          });
+    }
 }
 
 function verUsuario(id){
@@ -352,7 +362,11 @@ async function registrarUsuario(){
                 title: 'Un usuario registrado exitosamente',
                 showConfirmButton: false,
                 timer: 1500
-              })          
+              })   
+              document.getElementById("contentModal").innerHTML = '';
+              var myModalEl = document.getElementById('modalUsuario')
+              var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
+              modal.hide();       
            
         }else{
             Swal.fire({
@@ -364,14 +378,25 @@ async function registrarUsuario(){
               });
         }
     }else{
-      listarUsuarios();
-      alertas("Se ha registrado el usuario exitosamente!",1)
+        if(request.status=='201'){
+            listarUsuarios();
+            alertas("Se ha registrado el usuario exitosamente!",1)
+            document.getElementById("contentModal").innerHTML = '';
+            var myModalEl = document.getElementById('modalUsuario')
+            var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
+            modal.hide();
+        }else{
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                text: 'ingrese los datos de manera correcta',
+                showConfirmButton: false,
+                timer: 2000
+              });
+        }
     }
     
-    document.getElementById("contentModal").innerHTML = '';
-    var myModalEl = document.getElementById('modalUsuario')
-    var modal = bootstrap.Modal.getInstance(myModalEl) // Returns a Bootstrap modal instance
-    modal.hide();
+   
 }
 
 function modalConfirmacion(texto,funcion){
