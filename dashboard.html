@@ -19,16 +19,16 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#"  onclick="listarUsuarios()">Users</a>
+                <a class="nav-link" href="#"  onclick="listarUsuarios()"> <i class="fa-solid fa-users"></i> Users</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick="listarArticulos()">Articles</a>
+                <a class="nav-link" href="#" onclick="listarArticulos()"><i class="fa-solid fa-gift"></i> Articles</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick="listarcategorias()">Categories</a>
+                <a class="nav-link" href="#" onclick="listarcategorias()"><i class="fa-solid fa-network-wired"></i> Categories</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link link-danger " href="#" onclick="exit()">logout</a>
+                <a class="nav-link link-danger " href="#" onclick="exit()"><i class="fa-solid fa-right-from-bracket"></i> logout</a>
               </li>
             </ul>
          
@@ -41,8 +41,10 @@
             <div class="card-header">
               Bienvenido!
             </div>
+          
+
             <div class="card-body">
-               
+              <div id="alerta"></div>
                 <div style="display:none;"   id="table_usuario" class="card-body">
                   
                     <div id="datos"></div>
@@ -127,7 +129,7 @@
               </div>
 
 
-               <div id="alerta"> </div>
+               
             </div>
         </div>
     </div>

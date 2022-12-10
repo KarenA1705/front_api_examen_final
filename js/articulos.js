@@ -1,6 +1,6 @@
 //funciones js para el modulo de articulos
 
-const urlApi2 = "http://localhost:8080";//colocar la url con el puerto
+const urlApi2 = "http://localhost:8090";//colocar la url con el puerto
 
 function listarArticulos(){
     validaToken();
